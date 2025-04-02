@@ -29,28 +29,33 @@ $(document).ready(function () {
   });
 
   function populateTable(exchange) {
-    let stocks = dataStore.getStocks(exchange);
+    let stocks;
     let tableBody = $("#stockTableBody");
-
     tableBody.empty();
+
+    if (exchange === "ALL") {
+      stocks = dataStore.getAllStocks();
+    } else {
+      stocks = dataStore.getStocks(exchange);
+    }
 
     stocks.forEach((stock) => {
       let row = `<tr>
-              <td>${stock.symbol}</td>
-              <td>${stock.open}</td>
-              <td>${stock.high}</td>
-              <td>${stock.low}</td>
-              <td>${stock.close}</td>
-              <td>${stock.bid}</td>
-              <td>${stock.ask}</td>
-              <td>${stock.tradeDate.toLocaleString()}</td>
-          </tr>`;
+            <td>${stock.symbol}</td>
+            <td>${stock.open}</td>
+            <td>${stock.high}</td>
+            <td>${stock.low}</td>
+            <td>${stock.close}</td>
+            <td>${stock.bid}</td>
+            <td>${stock.ask}</td>
+            <td>${stock.tradeDate.toLocaleString()}</td>
+        </tr>`;
 
       tableBody.append(row);
     });
   }
 
-  populateTable("TDWL");
+  populateTable("ALL");
 
   $("#exchange").change(function () {
     let selectedValue = $(this).val();

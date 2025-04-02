@@ -4,6 +4,10 @@ class DataStore {
     this.stocksByExchange = {};
   }
 
+  getAllStocks() {
+    return this.stockCollection;
+  }
+  
   getStocks(exchange) {
     return this.stocksByExchange[exchange] || [];
   }
